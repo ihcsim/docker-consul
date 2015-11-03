@@ -29,7 +29,9 @@ where:
 * `$DOCKER_HOST_IP` is the IP address of `$DOCKER_HOST` as specified by `docker-machine env`.
 * `MAPPED_PORT` is the host port that is mapped to the container's port 8500 as seen in `docker ps`.
 
-* To test cluster membership: 
+### Cluster Membership
+
+To test cluster membership: 
   1. Identify the first agent IP address: `docker inspect $AGENT1_CONTAINER_ID | grep IPAddress`
   2. Tell second agent to join first agent cluster: `docker exec $AGENT2_CONTAINER_ID consul join $AGENT1_IP_ADDRESS`
   3. To verify cluster membership: `docker exec $AGENT2_CONTAINTER_ID consul members`
