@@ -4,7 +4,7 @@ Docker image of Consul.
 
 ### Tags
 
-* 0.5.2
+* [0.5.2, latest](https://github.com/ihcsim/docker-consul/tree/0.5.2)
 
 ### Configurations
 
