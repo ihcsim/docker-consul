@@ -20,7 +20,10 @@ A set of default start-up configurations are found in the `config/base_config.js
 * To run first agent in server mode: `docker run -P --rm isim/consul agent -server -bootstrap-expect 1 -node agent01 -config-dir /opt/consul/config`
 * To run second agent in non-server mode: `docker run --rm -P isim/consul agent -node agent-02 --config-dir /opt/consul/config`
 
-* To test kv store: 
+
+### Key/Value Store
+
+To test kv store:
   * Insert data: `curl -X PUT -d "myvalue" $DOCKER_HOST_IP:$MAPPED_PORT/v1/kv/mykey`
   * Look up key: `curl $DOCKER_HOST_IP:$MAPPED_PORT/v1/kv/mykey`
   * Delete key: `curl -X DELETE $DOCKER_HOST_IP:$MAPPED_PORT/v1/kv/mykey`
@@ -29,9 +32,17 @@ where:
 * `$DOCKER_HOST_IP` is the IP address of `$DOCKER_HOST` as specified by `docker-machine env`.
 * `MAPPED_PORT` is the host port that is mapped to the container's port 8500 as seen in `docker ps`.
 
+
+### DNS API
+
+To test the agent DNS API: `dig @$DOCKER_HOST_IP -p $MAPPED_PORT agent-02.node.consul`
+where:
+* `$DOCKER_HOST_IP` is the IP address of `$DOCKER_HOST` as specified by `docker-machine env`.
+* `MAPPED_PORT` is the host port that is mapped to the container's port 8500 as seen in `docker ps`.
+
 ### Cluster Membership
 
-To test cluster membership: 
+To test cluster membership:
   1. Identify the first agent IP address: `docker inspect $AGENT1_CONTAINER_ID | grep IPAddress`
   2. Tell second agent to join first agent cluster: `docker exec $AGENT2_CONTAINER_ID consul join $AGENT1_IP_ADDRESS`
   3. To verify cluster membership: `docker exec $AGENT2_CONTAINTER_ID consul members`
@@ -49,6 +60,5 @@ agent-02  172.17.0.3:8301  alive   client  0.5.2  2         dc1
 Add instructions and configurations for:
 
 * Verify sha256sum in Dockerfile
-* Testing with DNS API
 * Mounting volume for data directory
 * Adding service and check definitions files
