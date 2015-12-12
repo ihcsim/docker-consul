@@ -1,14 +1,20 @@
 FROM ubuntu:precise
 MAINTAINER Ivan Sim, ihcsim@gmail.com
 
+ENV CONSUL_VERSION 0.6.0
+ENV CONSUL_SHA256 307fa26ae32cb8732aed2b3320ed8daf02c28b50d952cbaae8faf67c79f78847
+
 # install binaries
 RUN apt-get update && \
     apt-get install -y \
       wget \
       zip && \
-    wget --no-check-certificate https://releases.hashicorp.com/consul/0.5.2/consul_0.5.2_linux_amd64.zip && \
-    unzip -d /opt/consul/ consul_0.5.2_linux_amd64.zip && \
-    ln -s /opt/consul/consul /usr/bin/consul
+    wget --no-check-certificate https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    echo "$CONSUL_SHA256  consul_${CONSUL_VERSION}_linux_amd64.zip" > consul.sha256 && \
+    sha256sum -c consul.sha256 && \
+    unzip -d /opt/consul/ consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    ln -s /opt/consul/consul /usr/bin/consul && \
+    rm consul_${CONSUL_VERSION}_linux_amd64.zip consul.sha256
 
 COPY config /opt/consul/config/
 

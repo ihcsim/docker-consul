@@ -4,7 +4,8 @@ Docker image of Consul.
 
 ### Tags
 
-* [0.5.2, latest](https://github.com/ihcsim/docker-consul/tree/0.5.2)
+* [0.6.0, latest](https://github.com/ihcsim/docker-consul/tree/0.6.0)
+* [0.5.2](https://github.com/ihcsim/docker-consul/tree/0.5.2)
 
 ### Configurations
 
@@ -59,6 +60,5 @@ agent-02  172.17.0.3:8301  alive   client  0.5.2  2         dc1
 
 Add instructions and configurations for:
 
-* Verify sha256sum in Dockerfile
 * Mounting volume for data directory
 * Adding service and check definitions files
